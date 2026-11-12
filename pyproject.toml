@@ -1,0 +1,80 @@
+[project]
+name = "backtalk"
+version = "0.0.0"
+description = "A realtime speech server for the house: it hears and transcribes speech on the GPU and reads replies aloud in Chimera's voice, over the OpenAI Realtime protocol"
+requires-python = ">=3.15"
+dependencies = []
+
+[project.scripts]
+backtalk = "backtalk.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.5",
+]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    # Conflict with the formatter.
+    "COM812", "ISC001",
+    # Docstrings are prose, not Args/Returns sections, and not every function needs one.
+    "D",
+    # Messages are built where they're raised: raise SystemExit(f"...") is the house style.
+    "EM", "TRY003",
+    # CLIs print their results.
+    "T20",
+    # No TYPE_CHECKING import blocks; annotations import at the top like everything else.
+    "TC",
+    # Size and complexity are judged in review, not counted.
+    "C90", "PLR0904", "PLR0911", "PLR0912", "PLR0913", "PLR0914", "PLR0915", "PLR0917", "PLR1702",
+    "PLR2004",
+    # The formatter owns line length; a long comment or string isn't worth a finding.
+    "E501",
+    # Catching per item in a loop is how a run survives one bad item.
+    "PERF203",
+    # Heavy optional imports (torch, models) load inside the function that needs them.
+    "PLC0415",
+    # Modules may share a name with a stdlib module (queue.py) inside the package.
+    "A005",
+    # Untyped data enters as Any at the boundary (decoded JSON, driver rows).
+    "ANN401",
+    # A literal bool argument at the call site; FBT001/FBT002 still apply to definitions.
+    "FBT003",
+    # Commands are argv lists with shell=False; flagging every call adds noise, not safety.
+    "S603", "S607",
+    # No license headers or TODO formatting rules.
+    "CPY", "FIX", "TD",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+    "S101",    # pytest asserts
+    "ANN",     # tests aren't annotated or type-checked
+    "ARG",     # fakes implement whole Protocols
+    "SLF001",  # tests may reach into private helpers
+    "INP001",  # tests/ isn't a package
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"unittest.mock".msg = "Use a small fake that satisfies the Protocol, or monkeypatch."
+"unittest.TestCase".msg = "Write plain pytest functions."
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.mypy]
+strict = true
+files = ["src"]
