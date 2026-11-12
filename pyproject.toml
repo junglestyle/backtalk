@@ -76,6 +76,9 @@ ignore = [
     "SLF001",  # tests may reach into private helpers
     "INP001",  # tests/ isn't a package
 ]
+"tools/**" = [
+    "INP001",  # tools/ holds scripts run by path, not a package
+]
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"

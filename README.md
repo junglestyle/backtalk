@@ -27,6 +27,9 @@ to do with a read-back server (its README's "Local Live on a read-back speech se
   sentence at a time, as a user item and a `response.create`, for backtalk to read. Either way the transcript of
   each reading is exactly its text, which both the plugin and Conduit check.
 
+Agent mode needs a fast model of its own, which backtalk doesn't run. [docs/call-model.md](docs/call-model.md) is
+the reference setup for one on the same GPU host, llama.cpp serving Ministral 3 8B, and how it was chosen.
+
 ## Running it
 
 backtalk runs as the container image CI publishes from main, `ghcr.io/junglestyle/backtalk:<full commit SHA>`, on
