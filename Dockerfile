@@ -2,8 +2,11 @@
 # python:*-slim base).
 FROM nvidia/cuda:13.0.3-cudnn-runtime-ubuntu24.04@sha256:14f6d08d1cd4a96effbfe3101d0b56326f552c199d05e4979ee0bd616df5811b
 COPY --from=ghcr.io/astral-sh/uv:0.13.1@sha256:4a1f3666816dafadd20ceb71eac9a7d56d7ef30279f7d64048519ab901ada336 /uv /uvx /bin/
-# The speak worker's runtime: Node's binary alone, which needs nothing the base doesn't have.
+# The speak worker's runtime: Node's binary alone, and the one library it needs that the base lacks.
 COPY --from=node:26.13.1-trixie-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc /usr/local/bin/node /usr/local/bin/node
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libatomic1 \
+    && rm -rf /var/lib/apt/lists/*
 # uv installs the Python .python-version names, inside the image.
 ENV UV_PYTHON_INSTALL_DIR=/opt/python UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 WORKDIR /app
