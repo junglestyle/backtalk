@@ -4,7 +4,9 @@ backtalk has no language model, and a live call on it doesn't need one: by defau
 Hermes turn for each thing the owner says. That's slow to start talking. Conduit's agent mode (Voice mode > Local)
 puts a fast model in front of Hermes instead. It holds the conversation, answers small talk itself, and hands real
 work to Hermes as jobs, then tells the owner what Hermes found. This is the reference setup for that model on the same
-GPU host as backtalk, and how it was chosen.
+GPU host as backtalk, and how it was chosen. It's what the house runs: the owner calls hermes from
+[Conduit](https://github.com/kaishi00/hermes-conduit) on an iPhone, in agent mode, with backtalk as the speech server
+and this model in front.
 
 backtalk never talks to it. The plugin calls the fast model itself, for each turn backtalk transcribes, and sends its
 words back to backtalk to read aloud (the plugin's README, "Agent mode: a fast model in front of Hermes").
