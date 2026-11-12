@@ -13,3 +13,38 @@ jobs:
       - run: make check
   standards:
     uses: junglestyle/.github/.github/workflows/standards-check.yml@main
+  # Pull requests build the image to prove it builds; pushes to main publish it, tagged only by commit.
+  image:
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE: ghcr.io/junglestyle/backtalk
+      PUBLISH: ${{ github.ref == 'refs/heads/main' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - if: env.PUBLISH == 'true'
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: build
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          platforms: linux/amd64
+          # A plain image manifest, so the pinned digest is the image itself. The SHA tag and source label say where
+          # it came from.
+          provenance: false
+          push: ${{ env.PUBLISH == 'true' }}
+          tags: ${{ env.IMAGE }}:${{ github.sha }}
+          # Links the ghcr.io package to this repo.
+          labels: org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+      - if: env.PUBLISH == 'true'
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+        run: echo "Pushed \`$IMAGE@$DIGEST\` (tag \`$GITHUB_SHA\`)" >> "$GITHUB_STEP_SUMMARY"
