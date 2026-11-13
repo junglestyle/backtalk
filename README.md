@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/backtalk-lockup-dark.svg">
+    <img src="docs/assets/backtalk-lockup-light.svg" alt="backtalk" width="240">
+  </picture>
+</p>
+
 # backtalk
 
 A realtime speech server for the house: it hears and transcribes speech on the GPU and reads replies aloud in
