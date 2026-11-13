@@ -10,7 +10,7 @@ and its replies are spoken in an iPhone voice.
 
 The speech servers conduit_push knows (Hugging Face speech-to-speech, say) bring a language model of their own,
 which would answer in hermes' place, and none of them speaks in Chimera's voice. Chimera's voice exists as
-chimera-voice-chat's speak build, which turns text into audio and doesn't listen.
+chimera-tts's speak build, which turns text into audio and doesn't listen.
 
 backtalk is the house's speech server. It runs on the GPU host, hears and transcribes speech there, and reads text
 aloud in Chimera's voice through the speak build. It has no language model: conduit_push supports exactly such a
@@ -100,7 +100,7 @@ there.
 
 - **SPEAK-1: One long-lived worker.** backtalk runs `node $BACKTALK_SPEAK $BACKTALK_SPEAK_FLAGS --serve` as one
   child process, which loads Chimera's voice once and says one text at a time, over the line protocol of
-  chimera-voice-chat's speak build. The flags are the voice's settings, such as its speed, which the build checks.
+  chimera-tts's speak build. The flags are the voice's settings, such as its speed, which the build checks.
   It starts with backtalk, which says a word through it before taking connections and stops if it can't.
 - **SPEAK-2: Restarted when it fails.** A worker that exits, gives no answer in 60 s, or answers something else
   than the request is stopped and started again for the next request. The request it failed ends as in READ-6.
