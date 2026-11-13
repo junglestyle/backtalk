@@ -1,6 +1,6 @@
 .PHONY: check standards sync-standards
 SHELL := bash
-ORG = https://github.com/junglestyle/.github
+ORG = https://github.com/lowmagic/.github
 
 check:
 	uv lock --check

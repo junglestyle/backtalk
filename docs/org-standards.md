@@ -1,7 +1,7 @@
-<!-- junglestyle/.github code-standards/README.md at f2a82e123adcb0f03f1fd5ca763133878f855f96. Change it there, then run make sync-standards. -->
+<!-- lowmagic/.github code-standards/README.md at 8401afa7edb4cc2232fdd0972fe079123e6c5002. Change it there, then run make sync-standards. -->
 # Standards
 
-Each principle from [PRINCIPLES.md](https://github.com/junglestyle/.github/blob/main/PRINCIPLES.md) turned into rules you can check in review, arranged by where a reviewer looks. When they pull against each other, pick what works and is easiest to undo.
+Each principle from [PRINCIPLES.md](https://github.com/lowmagic/.github/blob/main/PRINCIPLES.md) turned into rules you can check in review, arranged by where a reviewer looks. When they pull against each other, pick what works and is easiest to undo.
 
 Each repo keeps this file unchanged as `docs/org-standards.md`. It lists the topics it also follows, such as `python`, in `.org-standards` at its root, and keeps each topic's file here unchanged as `docs/org-standards-<topic>.md`. Every copy is headed by the commit it came from. The repo puts its own rules and examples in `docs/standards.md`, under the heading here they belong to, or under one of its own when none fits; where that differs from a copy, the repo's file wins and names the rule it overrides. Where the repo doesn't follow a copy yet, its `docs/standards.md` says so under Known deviations, as debt to pay down. The repo's checks fail if a copy was edited by hand, this directory has moved on, or a copy's topic isn't listed; resyncing is one command.
 
@@ -19,7 +19,7 @@ Each repo keeps this file unchanged as `docs/org-standards.md`. It lists the top
   | What | Pinned to |
   | --- | --- |
   | Libraries | Lower bounds in the manifest, exact versions in the committed lockfile |
-  | Container images | A digest where a deployment runs it. [containers.md](https://github.com/junglestyle/.github/blob/main/code-standards/containers.md) covers tags in compose files |
+  | Container images | A digest where a deployment runs it. [containers.md](https://github.com/lowmagic/.github/blob/main/code-standards/containers.md) covers tags in compose files |
   | OS packages | The distribution release, named by an image's tag or a VM's cloud image. Packages within it, tools included, aren't pinned, and a host a deployment manages installs security updates automatically |
   | Tools and Ansible collections | An exact version or a commit |
   | Other downloads | A version or revision, plus a checksum when the source isn't signed |
@@ -102,8 +102,8 @@ Few, focused tests of consequential behavior, at boundaries that stay put.
 - The README says what the project is and how to run it, in that order.
 - `AGENTS.md` at the root tells an agent what to read before changing the repo (PRINCIPLES.md, the copies of these standards, `docs/standards.md`) and to run `make check` before committing.
 - Docs describe the behavior a user can observe (a default, a state name, an env var), so a reader never has to open the code to learn what the project does. They don't carry a second copy of the logic.
-- `docs/SPEC.md` says what the product is meant to do. It opens with the problem: who has it, and what goes wrong for them today. Its requirements follow, grouped under a heading per area, each a bullet that opens with an ID and a name, such as `**QUERY-3: Series listing.**` An ID names one requirement for good: it isn't renumbered or reused. What the spec assumes without having checked goes under Unknowns, and what isn't decided yet under Open questions. [examples/SPEC.md](https://github.com/junglestyle/.github/blob/main/code-standards/examples/SPEC.md) shows the shape.
-- `docs/ROADMAP.md` says the order it gets built in: numbered slices, each usable on its own. A slice opens with `Status:`, `planned` or `done`, and the change that makes its done-when pass sets it to `done`, so the next slice is the first one planned. Then it says what a user would notice, `Delivers:` lists the requirement IDs it delivers instead of restating them, and `Done when:` says what someone can demonstrate. A done slice stays where it is. The roadmap has no dates, checkboxes, or progress table; git says when. [examples/ROADMAP.md](https://github.com/junglestyle/.github/blob/main/code-standards/examples/ROADMAP.md) shows the shape.
+- `docs/SPEC.md` says what the product is meant to do. It opens with the problem: who has it, and what goes wrong for them today. Its requirements follow, grouped under a heading per area, each a bullet that opens with an ID and a name, such as `**QUERY-3: Series listing.**` An ID names one requirement for good: it isn't renumbered or reused. What the spec assumes without having checked goes under Unknowns, and what isn't decided yet under Open questions. [examples/SPEC.md](https://github.com/lowmagic/.github/blob/main/code-standards/examples/SPEC.md) shows the shape.
+- `docs/ROADMAP.md` says the order it gets built in: numbered slices, each usable on its own. A slice opens with `Status:`, `planned` or `done`, and the change that makes its done-when pass sets it to `done`, so the next slice is the first one planned. Then it says what a user would notice, `Delivers:` lists the requirement IDs it delivers instead of restating them, and `Done when:` says what someone can demonstrate. A done slice stays where it is. The roadmap has no dates, checkboxes, or progress table; git says when. [examples/ROADMAP.md](https://github.com/lowmagic/.github/blob/main/code-standards/examples/ROADMAP.md) shows the shape.
 - A deferred requirement stays in the spec and gets a later slice in the roadmap, not a stub in code. When the roadmap changes, check the spec's IDs against its `Delivers:` lines: a requirement no slice delivers is one the roadmap defers on purpose.
 - A decision that's hard to undo gets an ADR in `docs/stack.md`.
 
