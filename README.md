@@ -39,6 +39,7 @@ at `/v1/realtime` and runs as uid 8765. It reads:
 | Variable | What it is |
 | --- | --- |
 | `BACKTALK_SPEAK` | The speak worker, `speak/speak.mjs` in chimera-voice-chat's build. Mount the build read-only, at `/srv/chimera` say, and set `/srv/chimera/speak/speak.mjs`. |
+| `BACKTALK_SPEAK_FLAGS` | Optional. The voice's settings, as flags for the speak worker, such as `--rate 0.9 --voicing 1.5 --plosives 1.5`: speed, more voice in b, d, g, v, z, and harder p, t, k, b, d, g (chimera-voice-chat's README lists them all). Left out, the build's defaults. A flag the build doesn't take stops backtalk at start, saying which. |
 | `BACKTALK_API_KEY` | Optional. When set, every connection must send `Authorization: Bearer <key>` or is refused with 401. Put the same key in the profile's `voice.speech_server.api_key`. |
 | `BACKTALK_CACHE` | Where the models download on first start (about 2.6 GB) and load from after. The image sets `/var/cache/backtalk`; mount a persistent volume there, writable by uid 8765. |
 

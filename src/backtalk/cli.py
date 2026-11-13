@@ -1,6 +1,7 @@
 import argparse
 import asyncio
 import os
+import shlex
 import signal
 import sys
 from pathlib import Path
@@ -17,8 +18,8 @@ PORT = 8765
 def main() -> None:
     argparse.ArgumentParser(
         description=f"Serves the OpenAI Realtime protocol on ws://{HOST}:{PORT}{PATH}: it transcribes speech "
-        "and reads text back in Chimera's voice. Set BACKTALK_SPEAK and BACKTALK_CACHE, and BACKTALK_API_KEY "
-        "to require a key."
+        "and reads text back in Chimera's voice. Set BACKTALK_SPEAK and BACKTALK_CACHE, BACKTALK_API_KEY "
+        "to require a key, and BACKTALK_SPEAK_FLAGS for the voice's settings."
     ).parse_args()
     cache = os.environ.get("BACKTALK_CACHE")
     if not cache:
@@ -31,7 +32,12 @@ def main() -> None:
     key = os.environ.get("BACKTALK_API_KEY")
     if key is not None and not key.strip():
         raise SystemExit("BACKTALK_API_KEY is empty: set a key, or unset it to take connections without one")
-    worker = SpeakWorker(["node", speak, "--serve"])
+    try:
+        flags = shlex.split(os.environ.get("BACKTALK_SPEAK_FLAGS", ""))
+    except ValueError as error:
+        raise SystemExit(f"BACKTALK_SPEAK_FLAGS can't be read as flags: {error}") from None
+    # The speak build checks its own flags, so a wrong one stops the worker's first word below.
+    worker = SpeakWorker(["node", speak, *flags, "--serve"])
     voice = Voice(
         model=models.MODEL,
         transcriber=models.Parakeet(Path(cache)),
