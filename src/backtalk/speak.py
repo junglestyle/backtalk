@@ -1,6 +1,6 @@
 """The speak worker: Chimera's voice, as one long-lived child process.
 
-The worker (chimera-voice-chat's `speak.mjs --serve`) reads one JSON request
+The worker (chimera-tts's `speak.mjs --serve`) reads one JSON request
 a line on stdin, `{"id", "text"}`, and answers each in order with one line on
 stdout: `{"id", "rate", "pcm"}` (base64 PCM16 of the whole text) or
 `{"id", "error"}`. It loads its voice once, so it stays up between requests;
