@@ -107,7 +107,7 @@ there.
 
 ## Running
 
-- **RUN-1: A container image.** CI publishes `ghcr.io/junglestyle/backtalk:<full commit SHA>` from main. It runs
+- **RUN-1: A container image.** CI publishes `ghcr.io/lowmagic/backtalk:<full commit SHA>` from main. It runs
   on the GPU host with the GPU passed in, the speak build mounted read-only, and `BACKTALK_CACHE` on a persistent
   volume. The README says how.
 - **RUN-2: Logs without words.** backtalk writes plain lines to stderr: models loaded, sessions opened and

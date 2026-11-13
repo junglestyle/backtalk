@@ -12,7 +12,7 @@ jobs:
       - run: uv sync --frozen
       - run: make check
   standards:
-    uses: junglestyle/.github/.github/workflows/standards-check.yml@main
+    uses: lowmagic/.github/.github/workflows/standards-check.yml@main
   # Pull requests build the image to prove it builds; pushes to main publish it, tagged only by commit.
   image:
     needs: check
@@ -21,7 +21,7 @@ jobs:
       contents: read
       packages: write
     env:
-      IMAGE: ghcr.io/junglestyle/backtalk
+      IMAGE: ghcr.io/lowmagic/backtalk
       PUBLISH: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - uses: actions/checkout@v7

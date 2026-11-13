@@ -5,7 +5,7 @@ Chimera's voice, over the OpenAI Realtime protocol.
 
 backtalk is a read-back speech server. It has no language model. It detects where speech starts and stops in the
 audio it's sent and transcribes each turn with NVIDIA's Parakeet TDT 0.6B v3, and it says the text it's given in
-Chimera's voice, through [chimera-voice-chat](https://github.com/junglestyle/chimera-voice-chat)'s speak build. A
+Chimera's voice, through [chimera-voice-chat](https://github.com/lowmagic/chimera-voice-chat)'s speak build. A
 session that asks it to answer on its own is refused. The [spec](docs/SPEC.md) says exactly what it sends and
 accepts.
 
@@ -32,7 +32,7 @@ the reference setup for one on the same GPU host, llama.cpp serving Ministral 3 
 
 ## Running it
 
-backtalk runs as the container image CI publishes from main, `ghcr.io/junglestyle/backtalk:<full commit SHA>`, on
+backtalk runs as the container image CI publishes from main, `ghcr.io/lowmagic/backtalk:<full commit SHA>`, on
 a host with an NVIDIA GPU (CUDA 13; a driver of 580 or later). The image serves the realtime socket on port 8765
 at `/v1/realtime` and runs as uid 8765. It reads:
 
@@ -50,7 +50,7 @@ podman run -d --name backtalk --device nvidia.com/gpu=all \
   -p 192.168.1.20:8765:8765 \
   -v /srv/chimera:/srv/chimera:ro -v backtalk-cache:/var/cache/backtalk \
   -e BACKTALK_SPEAK=/srv/chimera/speak/speak.mjs -e BACKTALK_API_KEY \
-  ghcr.io/junglestyle/backtalk@sha256:<digest>
+  ghcr.io/lowmagic/backtalk@sha256:<digest>
 ```
 
 Then set the profile's speech server to `ws://192.168.1.20:8765/v1/realtime` and run Conduit's speech server test.
@@ -60,7 +60,7 @@ took, never the words.
 
 ### Sharing the GPU with corral
 
-backtalk holds the GPU for as long as it runs. A [corral](https://github.com/junglestyle/corral) worker on the same
+backtalk holds the GPU for as long as it runs. A [corral](https://github.com/lowmagic/corral) worker on the same
 host that offers `gpu` counts any GPU process it doesn't know as foreign and stops taking GPU work while it's there.
 List backtalk's process under the worker's `ignore`, by the name the image gives it:
 

@@ -1,7 +1,7 @@
-<!-- junglestyle/.github code-standards/python.md at f2a82e123adcb0f03f1fd5ca763133878f855f96. Change it there, then run make sync-standards. -->
+<!-- lowmagic/.github code-standards/python.md at 8401afa7edb4cc2232fdd0972fe079123e6c5002. Change it there, then run make sync-standards. -->
 # Python standards
 
-Decisions for Python code, beneath the org [standards](https://github.com/junglestyle/.github/blob/main/code-standards/README.md). `ruff.toml` holds the mechanical rules; this file holds what a linter can't check.
+Decisions for Python code, beneath the org [standards](https://github.com/lowmagic/.github/blob/main/code-standards/README.md). `ruff.toml` holds the mechanical rules; this file holds what a linter can't check.
 
 ## Tooling
 
@@ -66,7 +66,7 @@ Decisions for Python code, beneath the org [standards](https://github.com/jungle
 
 ## Dependencies
 
-- Bounds follow the org's [Versions and pins](https://github.com/junglestyle/.github/blob/main/code-standards/README.md#versions-and-pins). Pin exactly or cap a version only for a known break, with a comment naming it.
+- Bounds follow the org's [Versions and pins](https://github.com/lowmagic/.github/blob/main/code-standards/README.md#versions-and-pins). Pin exactly or cap a version only for a known break, with a comment naming it.
 - torch comes from the PyTorch CPU index through `[tool.uv.sources]`, unless the code runs on a GPU.
 
 ---

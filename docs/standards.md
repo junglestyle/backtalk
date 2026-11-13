@@ -2,7 +2,7 @@
 
 backtalk follows the [org standards](org-standards.md) and the standards for its topics
 ([containers](org-standards-containers.md), [python](org-standards-python.md)), unchanged copies of
-[junglestyle's](https://github.com/junglestyle/.github/tree/main/code-standards). `.org-standards` lists the topics
+[lowmagic's](https://github.com/lowmagic/.github/tree/main/code-standards). `.org-standards` lists the topics
 it copies beyond the general one. This file adds backtalk's own rules and examples. Where it differs from an org
 rule, it says so, and it wins.
 
